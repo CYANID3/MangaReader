@@ -9,7 +9,7 @@ class MangaReader:
         self.root.configure(bg="#1e1e1e")
         self.root.geometry("800x600")
         self.root.title("PDF Reader")
-        self.root.iconbitmap("")  # Убираем иконку
+        self.root.iconbitmap("")
         self.root.overrideredirect(False)
      
         self.doc = None
@@ -19,15 +19,12 @@ class MangaReader:
         self._resize_after = None
         self.is_fullscreen = False
 
-        # Canvas
         self.canvas = tk.Label(root, bg="black")
         self.canvas.grid(row=0, column=0, sticky="nsew")
 
-        # Page label (top right corner)
         self.page_label = tk.Label(root, text="", font=("Arial", 10), fg="#e0e0e0", bg="#1e1e1e")
         self.page_label.grid(row=0, column=0, sticky="ne", padx=10, pady=10)
 
-        # Control panel
         self.control_frame = tk.Frame(root, bg="#1e1e1e")
         self.control_frame.grid(row=1, column=0, pady=5, sticky="ew")
 
@@ -41,22 +38,20 @@ class MangaReader:
         self.prev_btn.grid(row=0, column=1, padx=5, sticky="ew")
         self.next_btn.grid(row=0, column=2, padx=5, sticky="ew")
 
-        # Resize config
         root.grid_rowconfigure(0, weight=1)
         root.grid_columnconfigure(0, weight=1)
 
-        # Hotkeys
         root.bind("<KeyPress>", self.keypress_handler)
         root.bind("<Configure>", self.on_resize)
 
     def keypress_handler(self, event):
         ctrl = (event.state & 0x4) != 0
 
-        if ctrl and event.keycode == 79:  # Ctrl+O
+        if ctrl and event.keycode == 79:
             self.open_pdf()
-        elif event.keycode == 37:  # Left arrow
+        elif event.keycode == 37:
             self.prev_page()
-        elif event.keycode == 39:  # Right arrow
+        elif event.keycode == 39:
             self.next_page()
         elif event.keysym == "F11":
             self.toggle_fullscreen()
@@ -128,19 +123,19 @@ class MangaReader:
         self.root.attributes("-fullscreen", self.is_fullscreen)
 
         if self.is_fullscreen:
-            self.root.overrideredirect(True)  # Убираем стандартный заголовок
+            self.root.overrideredirect(True)
             self.control_frame.grid_forget()
         else:
-            self.root.overrideredirect(False)  # Восстанавливаем стандартный заголовок
+            self.root.overrideredirect(False)
             self.control_frame.grid(row=1, column=0, pady=5, sticky="ew")
             self.root.configure(bg="#1e1e1e")
 
 
 if __name__ == "__main__":
     root = tk.Tk()
-    root.withdraw()  # скрываем окно
+    root.withdraw()
 
     app = MangaReader(root)
 
-    root.deiconify()  # показываем окно после инициализации
+    root.deiconify()
     root.mainloop()
