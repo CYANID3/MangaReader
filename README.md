@@ -32,7 +32,7 @@
 
 - Python 3.10+
 - [`PyMuPDF`](https://pypi.org/project/PyMuPDF/)
-- `Pillow`
+- [`Pillow`](https://pypi.org/project/pillow/)
 
 Установить зависимости:
 ```bash
